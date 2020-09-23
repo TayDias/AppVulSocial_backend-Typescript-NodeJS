@@ -4,7 +4,6 @@ import knex from 'knex'
 require('dotenv').config()
 
 //Production
-/*
 const connection = knex({
   client: 'mysql',
   connection: {
@@ -27,10 +26,10 @@ const connection = knex({
     },
     useNullAsDefault: true     
 })
-*/
 
 // Dev
 //MySql 
+/*
 const connection = knex({
     client: 'mysql',
     connection: {
@@ -53,6 +52,7 @@ const connection = knex({
       },
       useNullAsDefault: true     
 })
+*/
 
 // Sqlite
 /*
