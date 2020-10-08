@@ -7,15 +7,12 @@
   "declaration": true,
   "scripts": {
     "dev": "npx ts-node-dev --ignore-watch node_modules --respawn src/server.ts",
-
     "knex:migrate": "npx knex --knexfile knexfile.ts migrate:latest --env development",
     "knex:seed": "npx knex --knexfile knexfile.ts seed:run --env development",
     "knex:migrate2": "npx knex --knexfile knexfile.ts migrate:latest --env development2",
     "knex:seed2": "npx knex --knexfile knexfile.ts seed:run --env development2",
-    
     "knex:migrateprod": "npx knex --knexfile knexfile.ts migrate:latest --env production",
     "knex:seedprod": "npx knex --knexfile knexfile.ts seed:run --env production",
-
     "start": "node dist/src/server.js",
     "build": "tsc"
   },
@@ -25,15 +22,22 @@
   "dependencies": {
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.7",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/socket.io": "^2.1.11",
     "cors": "^2.8.5",
     "crypto-ts": "^1.0.2",
     "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
     "mysql": "^2.18.1",
-    "node-pre-gyp": "^0.15.0"
+    "node-pre-gyp": "^0.15.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "copyfiles": "^2.3.0",
     "sqlite3": "^5.0.0",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.61",

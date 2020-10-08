@@ -5,8 +5,11 @@ export async function up(knex: Knex) {
         table.increments('id').primary()
 
         table.integer('protocol').notNullable()
-        table.string('session_start').notNullable()
-        table.string('session_end').notNullable()
+        table.integer('status').notNullable()
+        table.string('accessLink').notNullable()
+        table.string('session_start')
+        table.string('session_end')
+        table.string('preview')
 
         table.integer('rescuer_id')
             .notNullable()

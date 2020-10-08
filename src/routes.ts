@@ -4,12 +4,16 @@ import SpecialtyController from './controllers/SpecialtyController'
 import RescuerController from './controllers/RescuerController'
 import VulnerableController from './controllers/VulnerableController'
 import ScheduleController from './controllers/ScheduleController'
+import AssistanceController from './controllers/AssistanceController'
+import AuthController from './controllers/AuthController'
 
 const routes = express.Router()
 const specialtyController = new SpecialtyController
 const rescuerController = new RescuerController()
 const vulnerableController = new VulnerableController()
 const scheduleController = new ScheduleController()
+const assistanceController = new AssistanceController()
+const authController = new AuthController()
 
 //Listar Areas
 routes.get('/specialties', specialtyController.index)
@@ -17,8 +21,17 @@ routes.get('/specialties', specialtyController.index)
 //Listar Atentendes
 routes.get('/rescuers', rescuerController.index)
 
-//Cadastrar Atendentes
+//Mostrar Atentende
+routes.get('/rescuers:id', rescuerController.show)
+
+//Cadastrar Atendente
 routes.post('/rescuers', rescuerController.create)
+
+//Mostrar Horarios
+routes.get('/schedules', scheduleController.show)
+
+//Atualizar Horarios
+routes.put('/schedules', scheduleController.update)
 
 //Listar Vulneráveis
 routes.get('/vulnerable', vulnerableController.index)
@@ -26,8 +39,20 @@ routes.get('/vulnerable', vulnerableController.index)
 //Cadastrar Vulneráveis
 routes.post('/vulnerable', vulnerableController.create)
 
-//Listar Horarios
-routes.get('/schedules', scheduleController.index)
+//Listar Atendente
+routes.get('/assistance', assistanceController.index)
+
+//Mostrar Atentende
+routes.get('/assistance:id', assistanceController.show)
+
+//Cadastrar Atentende
+routes.get('/assistance', assistanceController.create)
+
+//Atualizar Horarios
+routes.put('/assistance', assistanceController.update)
+
+//Login
+routes.post('/login', authController.login)
 
 
 export default routes

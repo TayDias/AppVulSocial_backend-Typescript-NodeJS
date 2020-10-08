@@ -12,12 +12,31 @@ interface ScheduleItem {
 
 class RescuerController {
     async index(request: Request, response: Response) {
+        const rescuers = await knex('rescuer')
+            .join('user', 'user.id', '=', 'rescuer.user_id')
+            .join('specialty', 'specialty.id', '=', 'rescuer.specialty_id')
+            .join('schedule', 'schedule.rescuer_id', '=', 'rescuer.id')
+            .distinct()
+            .select('user.*', 'rescuer.*', 'specialty.name AS specialty_name')
+
+        return response.json(rescuers)
+    }
+
+    async show(request: Request, response: Response) {
+        const { id } = request.params;
+
         const rescuer = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .join('specialty', 'specialty.id', '=', 'rescuer.specialty_id')
             .join('schedule', 'schedule.rescuer_id', '=', 'rescuer.id')
             .distinct()
             .select('user.*', 'rescuer.*', 'specialty.name AS specialty_name')
+            .where('rescuer.id', String(id))
+            .first()
+        
+        if(!rescuer) {
+            return response.status(400).json({ message: 'Rescuer not found.'})
+        }
 
         return response.json(rescuer)
     }
@@ -50,7 +69,7 @@ class RescuerController {
         const user_id = insertedUserIds[0]
 
         //Encriptar password
-        const encryptedPass = AES.encrypt(password, "Bolacha").toString()
+        const encryptedPass = AES.encrypt(password, (process.env.ENCRYPTION_KEY+'')).toString()
         password = encryptedPass
 
         const rescuer = {
