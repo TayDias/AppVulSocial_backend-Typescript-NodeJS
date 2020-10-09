@@ -54,6 +54,7 @@ class RescuerController {
         let { password } = request.body
 
         const type = ('Atendente').toString()
+        const available = 1
 
         const user = {
             name,
@@ -76,6 +77,7 @@ class RescuerController {
             bio,
             email,
             password,
+            available,
             specialty_id,
             user_id
         }
@@ -106,6 +108,35 @@ class RescuerController {
             rescuer_schedules
         })
 
+    }
+
+    async update (request: Request, response: Response) {
+        const { 
+            action, 
+            available, 
+            rescuer_id 
+        } = request.body
+
+        if(action === "available"){
+
+            if(available === '0') {
+                await knex('rescuer')
+                    .where('id', '=', String(rescuer_id))
+                    .update({
+                        available: 0
+                    })
+            }
+            else {
+                await knex('rescuer')
+                    .where('id', '=', String(rescuer_id))
+                    .update({
+                        available: 1
+                    })
+            }
+            return response.status(200).json({ message: 'Updated availability status.'})
+        }
+
+        response.status(400).json({ message: 'Unrecognized update option.'})
     }
 }
 

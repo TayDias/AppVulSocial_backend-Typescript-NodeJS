@@ -27,6 +27,9 @@ routes.get('/rescuers:id', rescuerController.show)
 //Cadastrar Atendente
 routes.post('/rescuers', rescuerController.create)
 
+//Atualizar Atendente
+routes.put('/rescuers', rescuerController.update)
+
 //Mostrar Horarios
 routes.get('/schedules', scheduleController.show)
 
@@ -46,7 +49,7 @@ routes.get('/assistance', assistanceController.index)
 routes.get('/assistance:id', assistanceController.show)
 
 //Cadastrar Atentende
-routes.get('/assistance', assistanceController.create)
+routes.post('/assistance', assistanceController.create)
 
 //Atualizar Horarios
 routes.put('/assistance', assistanceController.update)

@@ -6,7 +6,7 @@ class VulnerableController {
     async index (request: Request, response: Response) {
         const vulnerable = await knex('vulnerable')
             .join('user', 'user.id', '=', 'vulnerable.user_id')
-            .select('*')
+            .select('user.*', 'vulnerable.*')
 
         return response.json(vulnerable)
     }
