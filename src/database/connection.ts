@@ -35,11 +35,11 @@ const connection = knex({
 const connection = knex({
     client: 'mysql',
     connection: {
-        host : process.env.DATABASE_HOST,
-        user : process.env.DATABASE_USER,
-        password : process.env.DATABASE_ACCESS_KEY,
-        database : process.env.DATABASE_NAME,
-        port: 3305
+        host : "127.0.0.1",
+        user : "root",
+        password : "1910",
+        database : "ApiVulnerabilityBD",
+        port: 3306
       },
       pool: {
         min: 2,
@@ -56,7 +56,7 @@ const connection = knex({
 })
 
 
-// Sqlite
+// Sqlite - Banco antigo
 /*
 const connection = knex({
     client: 'sqlite3',
