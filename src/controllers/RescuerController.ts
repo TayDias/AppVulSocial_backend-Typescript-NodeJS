@@ -23,19 +23,21 @@ class RescuerController {
     }
 
     async show(request: Request, response: Response) {
-        const { id } = request.params;
+        const { id } = request.params
 
         const rescuer = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .join('specialty', 'specialty.id', '=', 'rescuer.specialty_id')
-            .join('schedule', 'schedule.rescuer_id', '=', 'rescuer.id')
-            .distinct()
-            .select('user.*', 'rescuer.*', 'specialty.name AS specialty_name')
-            .where('rescuer.id', String(id))
+            .select(
+                'user.name as name', 'user.type as type', 
+                'rescuer.email as email','rescuer.bio as bio',
+                'rescuer.available as available','specialty.name AS specialty'
+                )
+            .where('rescuer.id', '=', String(id))
             .first()
         
         if(!rescuer) {
-            return response.status(400).json({ message: 'Rescuer not found.'})
+            return response.status(404).json({ message: 'Rescuer not found.'})
         }
 
         return response.json(rescuer)

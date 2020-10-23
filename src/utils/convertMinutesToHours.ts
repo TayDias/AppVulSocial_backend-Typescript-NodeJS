@@ -1,8 +1,14 @@
 export default function convertMinutesToHours(time: number) {
-    const hours = (time / 60).toString()
+    const hours = (time / 60)
     const minutes = time % 60
+    let correctedHours = ''
 
-    let correctedHours = hours.charAt(0) + hours.charAt(1)
+    if(hours > 9 ) {
+        correctedHours = hours.toString().charAt(0) + hours.toString().charAt(1)
+    }
+    else {
+        correctedHours = "0" + hours.toString().charAt(0)
+    }
 
     let timeInMinutes = correctedHours + ":" + minutes
 

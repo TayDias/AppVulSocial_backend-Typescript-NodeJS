@@ -11,19 +11,42 @@ interface ScheduleItem {
     to: string
 }
 class ScheduleController {
+    async create (request: Request, response: Response) {
+        const {
+            rescuer_id,
+            schedules
+        } = request.body
+
+        const rescuer_schedules = schedules.map((scheduleItem: ScheduleItem) => {
+            return {
+                week_day: scheduleItem.weekday,
+                from: convertHoursToMinutes(scheduleItem.from),
+                to: convertHoursToMinutes(scheduleItem.to),
+                rescuer_id: rescuer_id
+            }
+        })
+
+        await knex('schedule').insert(rescuer_schedules)
+
+        return response.json({
+            rescuer_schedules
+        })
+    }
+
     async show (request: Request, response: Response) {
         const { rescuer_id } = request.query
 
         let schedule = await knex('schedule')
-            .where('schedule.rescuer_id', String(rescuer_id))
+            .where('schedule.rescuer_id', '=', String(rescuer_id))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'schedule.to AS to')
 
         const rescuer_schedules = schedule.map((scheduleItem: ScheduleItem) => {
             return {
+                id: scheduleItem.id,
                 weekday: scheduleItem.weekday,
                 from: convertMinutesToHours(Number(scheduleItem.from)),
                 to: convertMinutesToHours(Number(scheduleItem.to)),
-                rescuer_id
+                toUpdate: true
             }
         })
 
@@ -37,13 +60,14 @@ class ScheduleController {
         } = request.body
 
         const rescuer_schedules = schedules.map((scheduleItem: ScheduleItem) => {
-            return {
-                id: scheduleItem.id,
-                week_day: scheduleItem.weekday,
-                from: convertHoursToMinutes(scheduleItem.from),
-                to: convertHoursToMinutes(scheduleItem.to),
-                rescuer_id
-            }
+            if(scheduleItem.id >= 0){
+                return {
+                    id: scheduleItem.id,
+                    week_day: scheduleItem.weekday,
+                    from: convertHoursToMinutes(scheduleItem.from),
+                    to: convertHoursToMinutes(scheduleItem.to)
+                }
+            }          
         })
 
         //UPDATE NA TABELA SCHEDULE

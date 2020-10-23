@@ -22,13 +22,16 @@ routes.get('/specialties', specialtyController.index)
 routes.get('/rescuers', rescuerController.index)
 
 //Mostrar Atentende
-routes.get('/rescuers:id', rescuerController.show)
+routes.get('/rescuers/:id', rescuerController.show)
 
 //Cadastrar Atendente
 routes.post('/rescuers', rescuerController.create)
 
 //Atualizar Atendente
 routes.put('/rescuers', rescuerController.update)
+
+//Cadastrar Horario
+routes.post('/schedules', scheduleController.create)
 
 //Mostrar Horarios
 routes.get('/schedules', scheduleController.show)
