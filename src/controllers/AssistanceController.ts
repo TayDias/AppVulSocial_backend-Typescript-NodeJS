@@ -9,10 +9,16 @@ import selectAssistanceRescuer from '../utils/selectAssistanceRescuer'
 class AssistanceController {
     async index (request: Request, response: Response) {
         const assistance = await knex('assistance')
-            .join('rescuer', 'rescuer.id', '=', 'assistance.rescuer_id')
             .join('vulnerable', 'vulnerable.id', '=', 'assistance.vulnerable_id')
+            .join('user', 'user.id', '=', 'vulnerable.user_id')
+            .join('rescuer', 'rescuer.id', '=', 'assistance.rescuer_id')
             .distinct()
-            .select('assistance.*', 'rescuer.id', 'vulnerable.id')
+            .select(
+                'assistance.id as id', 'assistance.protocol as protocol',
+                'assistance.status as status', 'assistance.preview as preview',
+                'assistance.accessLink as accessLink', 'vulnerable.id as vulnerable_id',
+                'vulnerable.nickname as vulnerable_nickname', 'user.name as vulnerable_fullname'
+                )
 
         return response.json(assistance)
     }
@@ -25,7 +31,7 @@ class AssistanceController {
             .join('vulnerable', 'vulnerable.id', '=', 'assistance.vulnerable_id')
             .distinct()
             .select('assistance.*', 'rescuer.*', 'vulnerable.*')
-            .where('rescuer.id', String(rescuer_id))
+            .where('rescuer.id', '=', String(rescuer_id))
             .where('assistance.status', '<>', '2')
             .first()
 

@@ -45,13 +45,13 @@ routes.get('/vulnerable', vulnerableController.index)
 //Cadastrar Vulneráveis
 routes.post('/vulnerable', vulnerableController.create)
 
-//Listar Atendente
+//Listar Atendimentos
 routes.get('/assistance', assistanceController.index)
 
-//Mostrar Atentende
+//Mostrar Atendimento
 routes.get('/assistance:id', assistanceController.show)
 
-//Cadastrar Atentende
+//Cadastrar Atendimento
 routes.post('/assistance', assistanceController.create)
 
 //Atualizar Horarios
