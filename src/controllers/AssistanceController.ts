@@ -19,6 +19,7 @@ class AssistanceController {
                 'assistance.accessLink as accessLink', 'vulnerable.id as vulnerable_id',
                 'vulnerable.nickname as vulnerable_nickname', 'user.name as vulnerable_fullname'
                 )
+            .where('assistance.status', '<>', '2')
 
         return response.json(assistance)
     }
