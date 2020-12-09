@@ -46,7 +46,7 @@ class ScheduleController {
                 weekday: scheduleItem.weekday,
                 from: convertMinutesToHours(Number(scheduleItem.from)),
                 to: convertMinutesToHours(Number(scheduleItem.to)),
-                toUpdate: true
+                action: 1
             }
         })
 
