@@ -3,7 +3,7 @@ import knex from '../database/connection'
 import * as JWT from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
-import { AES, enc } from 'crypto-ts'
+import { decPass, dec } from '../utils/cryptoUtils'
 
 dotenv.config()
 
@@ -21,10 +21,10 @@ class AuthController {
 
 
         for await (const rescuer of rescuers) {            
-            const decryptedPass = AES.decrypt((rescuer.password).toString(), (process.env.ENCRYPTION_KEY+''))
-            const decryptedPassOutPut = decryptedPass.toString(enc.Utf8)
+            const decryptedPass = decPass(rescuer.password).toString()
+            const decryptedEmail = dec(rescuer.email).toString()
 
-            if((email === rescuer.email) && (password === decryptedPassOutPut)) {
+            if((email === decryptedEmail) && (password === decryptedPass)) {
                 const id = rescuer.id
 
                 const token = JWT.sign({ id }, (process.env.SECRET+''), {

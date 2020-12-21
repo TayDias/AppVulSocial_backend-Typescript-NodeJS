@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 import knex from '../database/connection'
 
-import { AES } from 'crypto-ts'
 import convertHoursToMinutes from '../utils/convertHoursToMinutes'
+
+import { dec, enc, encPass } from '../utils/cryptoUtils'
 
 interface ScheduleItem {
     weekday: string,
@@ -25,7 +26,7 @@ class RescuerController {
     async show(request: Request, response: Response) {
         const { id } = request.params
 
-        const rescuer = await knex('rescuer')
+        let rescuer = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .join('specialty', 'specialty.id', '=', 'rescuer.specialty_id')
             .select(
@@ -40,23 +41,35 @@ class RescuerController {
             return response.status(404).json({ message: 'Rescuer not found.'})
         }
 
+        //Desencriptação dos dados
+        rescuer.name = dec(rescuer.name).toString()
+        rescuer.email = dec(rescuer.email).toString()
+
         return response.json(rescuer)
     }
 
     async create (request: Request, response: Response) {
         const {
-            name,
-            phone,
             bio,
-            email,
             specialty_id,
             schedules
         } = request.body
 
-        let { password } = request.body
+        let { 
+            name, 
+            phone, 
+            password, 
+            email 
+        } = request.body
 
         const type = ('Atendente').toString()
         const available = 1
+
+        //Encriptação de dados sensíveis - LGPD
+        password = encPass(password).toString()
+        name = enc(name)
+        phone = enc(phone)
+        email = enc(email)
 
         const user = {
             name,
@@ -70,10 +83,6 @@ class RescuerController {
         //INSERT NA TABELA USER
         const insertedUserIds = await transaction('user').insert(user)
         const user_id = insertedUserIds[0]
-
-        //Encriptar password
-        const encryptedPass = AES.encrypt(password, (process.env.ENCRYPTION_KEY+'')).toString()
-        password = encryptedPass
 
         const rescuer = {
             bio,

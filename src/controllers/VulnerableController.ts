@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 import { randomBytes } from 'crypto'
 
+import { dec, enc, encPass } from '../utils/cryptoUtils'
 class VulnerableController {
     async index (request: Request, response: Response) {
         const vulnerable = await knex('vulnerable')
@@ -12,7 +13,7 @@ class VulnerableController {
     }
 
     async create (request: Request, response: Response) {    
-        const {
+        let {
             name,
             phone,
             nickname,
@@ -20,7 +21,14 @@ class VulnerableController {
         } = request.body
 
         const type = ('Vulnerável').toString()
-        const access_key = randomBytes(3).toString('hex')
+
+        let access_key = randomBytes(3).toString('hex')
+
+        //Encriptação de dados sensíveis - LGPD
+        access_key = encPass(access_key).toString()
+        name = enc(name)
+        phone = enc(phone)
+        address = enc(address)
 
         const user = {
             name,
