@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 import { randomBytes } from 'crypto'
 
-import { dec, enc, encPass } from '../utils/cryptoUtils'
+import { dec, decPass, enc, encPass } from '../utils/cryptoUtils'
 class VulnerableController {
     async index (request: Request, response: Response) {
         const vulnerable = await knex('vulnerable')
@@ -57,6 +57,9 @@ class VulnerableController {
     
         //Commit da alteração
         await transaction.commit()
+
+        //Desncriptação de dados para retorno - LGPD
+        access_key = decPass(access_key).toString()
 
         return response.json({
             user_id,
