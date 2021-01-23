@@ -3,12 +3,14 @@ import knex from '../database/connection'
 
 import convertHoursToMinutes from '../utils/convertHoursToMinutes'
 import convertMinutesToHours from '../utils/convertMinutesToHours'
+import { getTime, getWeekday } from '../utils/dateTimeUtils'
 
 interface ScheduleItem {
     id: number,
     weekday: string,
     from: string,
-    to: string
+    to: string,
+    weekdayname: string
 }
 class ScheduleController {
     async create (request: Request, response: Response) {
@@ -51,6 +53,56 @@ class ScheduleController {
         })
 
         return response.json(rescuer_schedules)
+    }
+
+    async showNextDates (request: Request, response: Response) {
+        const actualDate = getTime()
+        const day = getWeekday()
+        const minutesActualDate = convertHoursToMinutes(actualDate)
+
+        const schedule_actualweek = await knex('schedule')
+            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .where('schedule.week_day', '>', String(day))
+                .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '>', String(minutesActualDate))
+            .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
+            .orderBy('weekday', 'from')
+
+        const schedule_nextweek = await knex('schedule')
+            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .where('schedule.week_day', '<', String(day))
+                .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '<', String(minutesActualDate))
+            .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
+            .orderBy('weekday', 'from')
+
+        const schedule = schedule_actualweek.concat(schedule_nextweek)
+
+        const schedules = schedule.map((scheduleItem: ScheduleItem) => {
+            return {
+                id: scheduleItem.id,
+                weekday: scheduleItem.weekday,
+                weekday_name: scheduleItem.weekdayname,
+                from: convertMinutesToHours(Number(scheduleItem.from)),
+            }
+        })
+
+        return response.json(schedules)
+    }
+
+    async checkAvailability (request: Request, response: Response) {
+        const actualDate = getTime()
+        const day = getWeekday()
+        const minutesActualDate = convertHoursToMinutes(actualDate)
+
+        const schedule = await knex('schedule')
+            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .where('schedule.week_day', '=', String(day))
+                .andWhere('schedule.from', '>=', String(minutesActualDate)).andWhere('schedule.to', '<', String(minutesActualDate-9))
+
+        if(schedule[0]) {
+            return response.json(true)
+        }
+
+        return response.json(false)
     }
 
     async update (request: Request, response: Response) {

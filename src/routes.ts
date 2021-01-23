@@ -36,6 +36,12 @@ routes.post('/schedules', scheduleController.create)
 //Mostrar Horarios
 routes.get('/schedules', scheduleController.show)
 
+//Mostrar próximos três horarios
+routes.get('/nextschedules', scheduleController.showNextDates)
+
+//Checar Horário atual
+routes.get('/checkAvailability', scheduleController.checkAvailability)
+
 //Atualizar Horarios
 routes.put('/schedules', scheduleController.update)
 

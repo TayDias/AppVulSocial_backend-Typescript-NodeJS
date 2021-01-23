@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 import { randomBytes } from 'crypto'
 
-import getDateTime from '../utils/getDateTime'
+import getDateTime from '../utils/dateTimeUtils'
 import checkRescuerAvailability from '../utils/checkRescuerAvailability'
 import selectAssistanceRescuer from '../utils/selectAssistanceRescuer'
 
