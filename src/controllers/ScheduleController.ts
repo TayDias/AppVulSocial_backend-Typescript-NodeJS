@@ -41,6 +41,7 @@ class ScheduleController {
         let schedule = await knex('schedule')
             .where('schedule.rescuer_id', '=', String(rescuer_id))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'schedule.to AS to')
+            .orderBy('weekday')
 
         const rescuer_schedules = schedule.map((scheduleItem: ScheduleItem) => {
             return {
@@ -61,14 +62,14 @@ class ScheduleController {
         const minutesActualDate = convertHoursToMinutes(actualDate)
 
         const schedule_actualweek = await knex('schedule')
-            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
             .where('schedule.week_day', '>', String(day))
                 .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '>', String(minutesActualDate))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
             .orderBy('weekday', 'from')
 
         const schedule_nextweek = await knex('schedule')
-            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
             .where('schedule.week_day', '<', String(day))
                 .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '<', String(minutesActualDate))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
@@ -94,7 +95,7 @@ class ScheduleController {
         const minutesActualDate = convertHoursToMinutes(actualDate)
 
         const schedule = await knex('schedule')
-            .join('weekday', 'weekday.id', '=', 'schedule.week_day')
+            .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
             .where('schedule.week_day', '=', String(day))
             .andWhere('schedule.from', '<=', String(minutesActualDate)).andWhere('schedule.to', '>', String(minutesActualDate))
 
