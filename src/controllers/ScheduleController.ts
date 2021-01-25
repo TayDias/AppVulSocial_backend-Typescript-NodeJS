@@ -96,7 +96,7 @@ class ScheduleController {
         const schedule = await knex('schedule')
             .join('weekday', 'weekday.id', '=', 'schedule.week_day')
             .where('schedule.week_day', '=', String(day))
-                .andWhere('schedule.from', '>=', String(minutesActualDate)).andWhere('schedule.to', '<', String(minutesActualDate-9))
+            .andWhere('schedule.from', '<=', String(minutesActualDate)).andWhere('schedule.to', '>', String(minutesActualDate))
 
         if(schedule[0]) {
             return response.json(true)
