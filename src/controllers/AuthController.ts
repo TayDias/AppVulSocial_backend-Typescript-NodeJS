@@ -19,7 +19,29 @@ class AuthController {
             .distinct()
             .select('rescuer.email AS email', 'rescuer.password AS password', 'rescuer.id AS id')
 
+        const vulnerable = await knex('vulnerable')
+            .join('user', 'user.id', '=', 'vulnerable.user_id')
+            .distinct()
+            .select('vulnerable.address AS email', 'vulnerable.access_key AS password', 'vulnerable.id AS id')
 
+        
+        //Para Vulneráveis
+        for await (const vul of vulnerable) {            
+            const decryptedPass = decPass(vul.password).toString()
+            const decryptedEmail = dec(vul.email).toString()
+
+            if((email === decryptedEmail) && (password === decryptedPass)) {
+                const id = vul.id
+
+                const token = JWT.sign({ id }, (process.env.SECRET+''), {
+                    expiresIn: 900 // expires in 15min
+                })
+
+                return response.json({ auth: true, token: token, id: vul.id, isRescuer: false })
+            }
+        }
+
+        //Para Atendentes
         for await (const rescuer of rescuers) {            
             const decryptedPass = decPass(rescuer.password).toString()
             const decryptedEmail = dec(rescuer.email).toString()
@@ -31,7 +53,7 @@ class AuthController {
                     expiresIn: 900 // expires in 15min
                 })
 
-                return response.json({ auth: true, token: token, id: rescuer.id })
+                return response.json({ auth: true, token: token, id: rescuer.id, isRescuer: true })
             }
         }
 
