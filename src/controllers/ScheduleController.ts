@@ -67,6 +67,9 @@ class ScheduleController {
                 .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '>', String(minutesActualDate))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
             .orderBy('weekday', 'from')
+            .limit(3)
+
+        let count = schedule_actualweek.length;
 
         const schedule_nextweek = await knex('schedule')
             .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
@@ -74,16 +77,17 @@ class ScheduleController {
                 .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '<', String(minutesActualDate))
             .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
             .orderBy('weekday', 'from')
+            .limit(3-count)
 
         const schedule = schedule_actualweek.concat(schedule_nextweek)
 
-        const schedules = schedule.map((scheduleItem: ScheduleItem) => {
+        const schedules = schedule.map((scheduleItem: ScheduleItem) => {    
             return {
                 id: scheduleItem.id,
                 weekday: scheduleItem.weekday,
                 weekday_name: scheduleItem.weekdayname,
                 from: convertMinutesToHours(Number(scheduleItem.from)),
-            }
+            }            
         })
 
         return response.json(schedules)
