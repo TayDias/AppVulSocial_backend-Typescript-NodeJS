@@ -1,9 +1,9 @@
 import express from 'express'
 
 import SpecialtyController from './controllers/SpecialtyController'
-import RescuerController from './controllers/RescuerController'
+import RescuerController from './controllers/Rescuer/RescuerController'
 import VulnerableController from './controllers/VulnerableController'
-import ScheduleController from './controllers/ScheduleController'
+import ScheduleController from './controllers/Schedule/ScheduleController'
 import AssistanceController from './controllers/AssistanceController'
 import AuthController from './controllers/AuthController'
 
