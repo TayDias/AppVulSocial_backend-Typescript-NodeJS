@@ -3,6 +3,8 @@ import knex from '../database/connection'
 import { randomBytes } from 'crypto'
 
 import { dec, decPass, enc, encPass } from '../utils/cryptoUtils'
+import sendAccessKey from '../utils/emailUtils'
+
 class VulnerableController {
     async index (request: Request, response: Response) {
         const vulnerable = await knex('vulnerable')
@@ -23,6 +25,8 @@ class VulnerableController {
         const type = ('Vulnerável').toString()
 
         let access_key = randomBytes(3).toString('hex')
+
+        const prev_address = address
 
         //Encriptação de dados sensíveis - LGPD
         access_key = encPass(access_key).toString()
@@ -60,6 +64,9 @@ class VulnerableController {
 
         //Desncriptação de dados para retorno - LGPD
         access_key = decPass(access_key).toString()
+
+        //Envio por e-mail da chave de acesso
+        sendAccessKey(prev_address, access_key)
 
         return response.json({
             user_id,

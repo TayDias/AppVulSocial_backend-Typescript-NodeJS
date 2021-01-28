@@ -66,5 +66,8 @@ routes.put('/assistance', assistanceController.update)
 //Login
 routes.post('/login', authController.login)
 
+//Enviar e-mail horários
+routes.post('/sendNextSchedules', scheduleController.sendNextSchedules)
+
 
 export default routes

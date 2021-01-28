@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import knex from '../database/connection'
+import knex from '../../database/connection'
 
-import convertHoursToMinutes from '../utils/convertHoursToMinutes'
+import convertHoursToMinutes from '../../utils/convertHoursToMinutes'
 
-import { dec, enc, encPass } from '../utils/cryptoUtils'
+import { dec, enc, encPass } from '../../utils/cryptoUtils'
 
 interface ScheduleItem {
     weekday: string,
