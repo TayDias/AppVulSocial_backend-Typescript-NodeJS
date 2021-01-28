@@ -3,7 +3,7 @@ import knex from '../database/connection'
 import { randomBytes } from 'crypto'
 
 import getDateTime from '../utils/dateTimeUtils'
-import checkRescuerAvailability from '../utils/checkRescuerAvailability'
+import checkRescuerAvailability from './Rescuer/checkRescuerAvailability'
 import selectAssistanceRescuer from '../utils/selectAssistanceRescuer'
 
 class AssistanceController {
