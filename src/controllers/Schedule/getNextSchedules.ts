@@ -6,10 +6,7 @@ import convertHoursToMinutes from '../../utils/convertHoursToMinutes'
 export default async function getNextSchedules() {
     const actualDate = getTime()
     const day = getWeekday()
-    let minutesActualDate = convertHoursToMinutes(actualDate)
-
-    // Gambiarra para produção (Problema de fuso horário do servidor - 3 horas adiantado)
-    minutesActualDate = minutesActualDate - 180
+    const minutesActualDate = convertHoursToMinutes(actualDate)
 
     const schedule_actualweek = await knex('schedule')
         .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')

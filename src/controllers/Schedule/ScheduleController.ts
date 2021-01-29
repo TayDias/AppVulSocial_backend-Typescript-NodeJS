@@ -117,10 +117,7 @@ class ScheduleController {
     async checkAvailability (request: Request, response: Response) {
         const actualDate = getTime()
         const day = getWeekday()
-        let minutesActualDate = convertHoursToMinutes(actualDate)
-
-        // Gambiarra para produção (Problema de fuso horário do servidor - 3 horas adiantado)
-        minutesActualDate = minutesActualDate - 180
+        const minutesActualDate = convertHoursToMinutes(actualDate)
 
         const schedule = await knex('schedule')
             .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
