@@ -39,11 +39,16 @@ export function sendNextSchedules(destinatario: string, schedule: any) {
 
 export function createTransporter() {
     const remetente = nodemailer.createTransport({
+        host: process.env.EMAILADDRESS,
         service: 'gmail',
         secure: false,
+        port:25,
         auth:{
             user: process.env.EMAILADDRESS,
             pass: process.env.EMAILPASSWORD,
+        },
+        tls: {
+            rejectUnauthorized: false
         }
     });
 

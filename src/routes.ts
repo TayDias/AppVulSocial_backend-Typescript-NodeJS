@@ -36,14 +36,17 @@ routes.post('/schedules', scheduleController.create)
 //Mostrar Horarios
 routes.get('/schedules', scheduleController.show)
 
+//Atualizar Horarios
+routes.put('/schedules', scheduleController.update)
+
+//Deletar horário
+routes.delete('/schedules', scheduleController.delete)
+
 //Mostrar próximos três horarios
 routes.get('/nextschedules', scheduleController.showNextDates)
 
 //Checar Horário atual
 routes.get('/checkAvailability', scheduleController.checkAvailability)
-
-//Atualizar Horarios
-routes.put('/schedules', scheduleController.update)
 
 //Listar Vulneráveis
 routes.get('/vulnerable', vulnerableController.index)
