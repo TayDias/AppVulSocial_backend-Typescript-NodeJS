@@ -12,7 +12,7 @@ export default function sendAccessKey(destinatario: string, chaveAcesso: string)
     const mailOptions = {
         from: process.env.EMAILADDRESS,
         to: destinatario,
-        subject: 'Próximos horários de atendimento - Rede de vulneráveis',
+        subject: 'Conclusão de Cadastro - Rede de vulneráveis',
         html: corpo,
     }
 
@@ -30,7 +30,7 @@ export function sendNextSchedules(destinatario: string, schedule: any) {
     const mailOptions = {
         from: process.env.EMAILADDRESS,
         to: destinatario,
-        subject: 'Conclusão de Cadastro - Rede de vulneráveis',
+        subject: 'Próximos horários de atendimento - Rede de vulneráveis',
         html: corpo,
     }
 
@@ -39,10 +39,10 @@ export function sendNextSchedules(destinatario: string, schedule: any) {
 
 export function createTransporter() {
     const remetente = nodemailer.createTransport({
-        host: process.env.EMAILADDRESS,
+        host: 'smtp.gmail.com',
         service: 'gmail',
         secure: false,
-        port:25,
+        port:587,
         auth:{
             user: process.env.EMAILADDRESS,
             pass: process.env.EMAILPASSWORD,
