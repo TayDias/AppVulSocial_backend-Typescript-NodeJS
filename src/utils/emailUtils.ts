@@ -1,7 +1,6 @@
 import * as nodemailer from 'nodemailer'
-import dotenv from 'dotenv'
 
-dotenv.config()
+require('dotenv').config()
 
 export default function sendAccessKey(destinatario: string, chaveAcesso: string) {
     const corpo = `<h1>Olá, aqui é a VIC!</h1>
@@ -41,14 +40,9 @@ export function createTransporter() {
     const remetente = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         service: 'gmail',
-        secure: false,
-        port:587,
         auth:{
             user: process.env.EMAILADDRESS,
             pass: process.env.EMAILPASSWORD,
-        },
-        tls: {
-            rejectUnauthorized: false
         }
     });
 
