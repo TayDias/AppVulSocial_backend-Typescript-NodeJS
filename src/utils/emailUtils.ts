@@ -3,6 +3,8 @@ import * as nodemailer from 'nodemailer'
 require('dotenv').config()
 
 export default function sendAccessKey(destinatario: string, chaveAcesso: string) {
+    require('dotenv').config()
+
     const corpo = `<h1>Olá, aqui é a VIC!</h1>
                     <p>Para concluir o seu cadastro na nossa rede, estou enviando a você sua chave de acesso.</p><br />
                     <p><b>Chave: ${chaveAcesso}</b></p><br />
@@ -19,6 +21,8 @@ export default function sendAccessKey(destinatario: string, chaveAcesso: string)
 }
 
 export function sendNextSchedules(destinatario: string, schedule: any) {
+    require('dotenv').config()
+    
     const corpo = `<h1>Olá, aqui é a VIC!</h1>
                     <p>Os atendentes devem estar disponíveis em breve.</p><br />
                     <p><ul><b>Horários:</b>
@@ -37,6 +41,8 @@ export function sendNextSchedules(destinatario: string, schedule: any) {
 }
 
 export function createTransporter() {
+    require('dotenv').config()
+
     const remetente = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         service: 'gmail',
