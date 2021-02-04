@@ -52,7 +52,7 @@ class ScheduleController {
                 weekday: scheduleItem.weekday,
                 from: convertMinutesToHours(Number(scheduleItem.from)),
                 to: convertMinutesToHours(Number(scheduleItem.to)),
-                action: 1
+                action: 0
             }
         })
 
@@ -99,36 +99,26 @@ class ScheduleController {
     }
 
     async delete (request: Request, response: Response) {
-        const {
-            schedules
-        } = request.body
-
-        const rescuer_schedules = schedules.map((scheduleItem: ScheduleItem) => {
-            if(scheduleItem.id >= 0){
-                return {
-                    id: scheduleItem.id
-                }
-            }          
-        })
+        let { id }  = request.query
 
         //DELETE NA TABELA SCHEDULE
-        try {  
+        try {
             knex.transaction(trx => {
-                const queries = rescuer_schedules.map((schedule: any) => knex('schedule')
-                    .where('id', schedule.id)
-                    .delete(schedule)
+                knex('schedule')
                     .transacting(trx)
-                )
-                Promise.all(queries)
-                    .then(trx.commit)    
-                    .catch(trx.rollback);
+                    .delete()
+                    .where({'id': id})
+                    .then(trx.commit)
+                    .catch(trx.rollback)
+    
             })
 
         } catch(e) {
             return response.status(400).json({ message: 'Falha ao realizar delete dos horários.'})
         }
+        
 
-        return response.status(200).json({ message: 'Horários deletados com sucesso'})
+        return response.status(200).json({ message: 'Horário deletado com sucesso'})
     }
 
     async showNextDates (request: Request, response: Response) {
