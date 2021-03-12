@@ -58,7 +58,7 @@ export function sendFeedback(autor: string, motivo: string, feedback: string) {
     const mailOptions = {
         from: process.env.EMAILADDRESS,
         to: process.env.EMAILADDRESS,
-        cc: process.env.CONTOLEMAILADDRESS,
+        cc: process.env.CONTROLEMAILADDRESS,
         subject: `Feedback de atendimento - ${autor}`,
         html: corpo,
     }
