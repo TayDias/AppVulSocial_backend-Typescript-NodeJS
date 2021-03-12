@@ -72,5 +72,7 @@ routes.post('/login', authController.login)
 //Enviar e-mail horários
 routes.post('/sendNextSchedules', scheduleController.sendNextSchedules)
 
+//Enviar e-mail feedback
+routes.post('/sendFeedback', vulnerableController.sendFeedback)
 
 export default routes

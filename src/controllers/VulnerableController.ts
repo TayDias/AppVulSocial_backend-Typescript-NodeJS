@@ -4,6 +4,7 @@ import { randomBytes } from 'crypto'
 
 import { dec, decPass, enc, encPass } from '../utils/cryptoUtils'
 import sendAccessKey from '../utils/emailUtils'
+import { sendFeedback } from '../utils/emailUtils'
 
 class VulnerableController {
     async index (request: Request, response: Response) {
@@ -73,6 +74,19 @@ class VulnerableController {
             ...user,
             vulnerable
         })
+    }
+
+    async sendFeedback (request: Request, response: Response) {
+        const { 
+            autor,
+            motivo,
+            feedback
+        } = request.body
+
+        //Envio do schedule
+        sendFeedback(autor, motivo, feedback)
+
+        return response.status(200).json({ message: 'Email enviado!'})
     }
 }
 

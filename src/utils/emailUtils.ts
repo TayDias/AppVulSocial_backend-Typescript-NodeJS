@@ -5,8 +5,8 @@ require('dotenv').config()
 export default function sendAccessKey(destinatario: string, chaveAcesso: string) {
     require('dotenv').config()
 
-    const corpo = `<h1>Olá, aqui é a VIC!</h1>
-                    <p>Para concluir o seu cadastro na nossa rede, estou enviando a você sua chave de acesso.</p><br />
+    const corpo = `<h2>Olá, aqui é a VIC!</h2>
+                    <p>Para concluir o seu cadastro na nossa rede, estou enviando a você sua chave de acesso.</p>
                     <p><b>Chave: ${chaveAcesso}</b></p><br />
                     <p>Até mais!</p>`
 
@@ -23,9 +23,9 @@ export default function sendAccessKey(destinatario: string, chaveAcesso: string)
 export function sendNextSchedules(destinatario: string, schedule: any) {
     require('dotenv').config()
     
-    const corpo = `<h1>Olá, aqui é a VIC!</h1>
-                    <p>Os atendentes devem estar disponíveis em breve.</p><br />
-                    <p><ul><b>Horários:</b>
+    const corpo = `<h2>Olá, aqui é a VIC!</h2>
+                    <p>Os atendentes devem estar disponíveis em breve.</p>
+                    <p><ul><b>Horários: </b>
                     ${schedule}
                     </ul></p><br />
                     <p>Até logo!</p>`
@@ -34,6 +34,32 @@ export function sendNextSchedules(destinatario: string, schedule: any) {
         from: process.env.EMAILADDRESS,
         to: destinatario,
         subject: 'Próximos horários de atendimento - Rede de vulneráveis',
+        html: corpo,
+    }
+
+    sendEmail(mailOptions)
+}
+
+export function sendFeedback(autor: string, motivo: string, feedback: string) {
+    require('dotenv').config()
+    
+    const corpo = `<h2>Olá, aqui é a VIC!</h2>
+                    <p>Esta pessoa não teve uma experiencia boa no chatbot e decidiu relatar:</p>
+                    <p>
+                        <ul>
+                            <li><b>Autor: </b>${autor},</li>
+                            <li><b>Motivo: </b>${motivo}</li>
+                            <li><b>Feedback: </b>${feedback}</li>
+                        </ul>
+                    </p>
+                    <br />
+                    <p>Espero que ajude!</p>`
+
+    const mailOptions = {
+        from: process.env.EMAILADDRESS,
+        to: process.env.EMAILADDRESS,
+        cc: process.env.CONTOLEMAILADDRESS,
+        subject: `Feedback de atendimento - ${autor}`,
         html: corpo,
     }
 
