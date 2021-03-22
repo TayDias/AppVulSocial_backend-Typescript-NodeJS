@@ -10,6 +10,8 @@ export default async function getNextSchedules() {
 
     const schedule_actualweek = await knex('schedule')
         .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
+        .join('rescuer', 'rescuer.id', '=', 'schedule.rescuer_id')
+        .where('rescuer.available', '=', '1')
         .where('schedule.week_day', '>', String(day))
             .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '>', String(minutesActualDate))
         .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
@@ -20,6 +22,8 @@ export default async function getNextSchedules() {
 
     const schedule_nextweek = await knex('schedule')
         .join('weekday', 'weekday.id_prod', '=', 'schedule.week_day')
+        .join('rescuer', 'rescuer.id', '=', 'schedule.rescuer_id')
+        .where('rescuer.available', '=', '1')
         .where('schedule.week_day', '<', String(day))
             .orWhere('schedule.week_day', '=', String(day)).andWhere('schedule.from', '<', String(minutesActualDate))
         .select('schedule.id AS id', 'schedule.week_day AS weekday', 'schedule.from AS from', 'weekday.name AS weekdayname')
