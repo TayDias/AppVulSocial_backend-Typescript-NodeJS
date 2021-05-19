@@ -37,7 +37,7 @@ const connection = knex({
     connection: {
         host : "127.0.0.1",
         user : "root",
-        password : "1910",
+        password : "",
         database : "ApiVulnerabilityBD",
         port: 3306
       },

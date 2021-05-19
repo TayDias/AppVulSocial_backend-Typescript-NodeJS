@@ -1,8 +1,8 @@
 // Configuração inicial de projeto
 
 // Instalações: 
-// npm install ts-node -D     
-// npm install typescript -D     
+// npm install ts-node -D
+// npm install typescript -D
 // npm install ts-node-dev -D
 // npm install cors
 

@@ -6,6 +6,7 @@ import VulnerableController from './controllers/VulnerableController'
 import ScheduleController from './controllers/Schedule/ScheduleController'
 import AssistanceController from './controllers/AssistanceController'
 import AuthController from './controllers/AuthController'
+import HelpController from './controllers/HelpController'
 
 const routes = express.Router()
 const specialtyController = new SpecialtyController
@@ -13,6 +14,7 @@ const rescuerController = new RescuerController()
 const vulnerableController = new VulnerableController()
 const scheduleController = new ScheduleController()
 const assistanceController = new AssistanceController()
+const helpController = new HelpController()
 const authController = new AuthController()
 
 //Listar Areas
@@ -46,7 +48,7 @@ routes.delete('/schedules', scheduleController.delete)
 routes.get('/nextschedules', scheduleController.showNextDates)
 
 //Checar Horário atual
-routes.get('/checkAvailability', scheduleController.checkAvailability)
+routes.get('/j', scheduleController.checkAvailability)
 
 //Listar Vulneráveis
 routes.get('/vulnerable', vulnerableController.index)
@@ -65,6 +67,9 @@ routes.post('/assistance', assistanceController.create)
 
 //Atualizar Horarios
 routes.put('/assistance', assistanceController.update)
+
+//Listar Help
+routes.get('/help', helpController.index)
 
 //Login
 routes.post('/login', authController.login)
