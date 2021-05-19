@@ -3,12 +3,23 @@ CREATE DATABASE IF NOT EXISTS `l45u0zesnsf2bf9o` /*!40100 DEFAULT CHARACTER SET 
 USE `l45u0zesnsf2bf9o`;
 
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.weekday
+CREATE TABLE IF NOT EXISTS `help` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(500) DEFAULT NULL,
+  `title` varchar(150) NOT NULL,
+  `desc` varchar(200) NOT NULL,
+  `text` varchar(1000) NOT NULL,
+  `location` enum('FAQ','Desk') NOT NULL DEFAULT 'FAQ',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+COMMIT;
+
 CREATE TABLE IF NOT EXISTS `weekday` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '0',
   `id_prod` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela l45u0zesnsf2bf9o.weekday: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `weekday` DISABLE KEYS */;
@@ -27,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `specialty` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela l45u0zesnsf2bf9o.specialty: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `specialty` DISABLE KEYS */;
@@ -38,6 +49,17 @@ INSERT IGNORE INTO `specialty` (`id`, `name`) VALUES
 	(4, 'Outra');
 /*!40000 ALTER TABLE `specialty` ENABLE KEYS */;
 
+-- Copiando estrutura para tabela l45u0zesnsf2bf9o.help
+CREATE TABLE IF NOT EXISTS `help` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(500) DEFAULT NULL,
+  `title` varchar(150) NOT NULL,
+  `desc` varchar(200) NOT NULL,
+  `text` varchar(1000) NOT NULL,
+  `location` enum('FAQ','Desk') NOT NULL DEFAULT 'FAQ',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -45,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `phone` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.rescuer
 CREATE TABLE IF NOT EXISTS `rescuer` (
@@ -61,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `rescuer` (
   KEY `rescuer_specialty_id_foreign` (`specialty_id`),
   CONSTRAINT `rescuer_specialty_id_foreign` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id`),
   CONSTRAINT `rescuer_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.schedule
 CREATE TABLE IF NOT EXISTS `schedule` (
@@ -73,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   PRIMARY KEY (`id`),
   KEY `schedule_rescuer_id_foreign` (`rescuer_id`),
   CONSTRAINT `schedule_rescuer_id_foreign` FOREIGN KEY (`rescuer_id`) REFERENCES `rescuer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.vulnerable
 CREATE TABLE IF NOT EXISTS `vulnerable` (
@@ -85,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `vulnerable` (
   PRIMARY KEY (`id`),
   KEY `vulnerable_user_id_foreign` (`user_id`),
   CONSTRAINT `vulnerable_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- Copiando estrutura para tabela l45u0zesnsf2bf9o.assistance
 CREATE TABLE IF NOT EXISTS `assistance` (
