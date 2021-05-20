@@ -7,6 +7,7 @@ import ScheduleController from './controllers/Schedule/ScheduleController'
 import AssistanceController from './controllers/AssistanceController'
 import AuthController from './controllers/AuthController'
 import HelpController from './controllers/HelpController'
+import AdminController from './controllers/AdminController'
 
 const routes = express.Router()
 const specialtyController = new SpecialtyController
@@ -15,6 +16,7 @@ const vulnerableController = new VulnerableController()
 const scheduleController = new ScheduleController()
 const assistanceController = new AssistanceController()
 const helpController = new HelpController()
+const adminController = new AdminController()
 const authController = new AuthController()
 
 //Listar Areas
@@ -70,6 +72,12 @@ routes.put('/assistance', assistanceController.update)
 
 //Listar Help
 routes.get('/help', helpController.index)
+
+//Listar Usuários
+routes.get('/admin', adminController.index)
+
+//Listar Usuário Específico
+routes.get('/admin/:id', adminController.search)
 
 //Login
 routes.post('/login', authController.login)

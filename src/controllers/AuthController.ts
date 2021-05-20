@@ -17,7 +17,7 @@ class AuthController {
         const rescuers = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .distinct()
-            .select('rescuer.email AS email', 'rescuer.password AS password', 'rescuer.id AS id', 'rescuer.available AS available')
+            .select('rescuer.email AS email', 'rescuer.password AS password', 'rescuer.id AS id', 'rescuer.available AS available', 'user.type AS type')
 
         const vulnerable = await knex('vulnerable')
             .join('user', 'user.id', '=', 'vulnerable.user_id')
@@ -54,7 +54,7 @@ class AuthController {
                         expiresIn: 900 // expires in 15min
                     })
 
-                    return response.json({ auth: true, token: token, id: rescuer.id, isRescuer: true, RescuerAvailable: true })
+                    return response.json({ auth: true, token: token, id: rescuer.id, isRescuer: true, RescuerAvailable: true, type: rescuer.type })
                 } else {
                     return response.json({ isRescuer: true, RescuerAvailable: false })
                 }
