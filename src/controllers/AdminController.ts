@@ -6,7 +6,7 @@ interface AdminItem {
     id: number,
     name: String,
     type: String,
-    avaliable: number,
+    available: number,
     phone: String,
     email: String,
     bio: String,
@@ -24,7 +24,7 @@ class AdminController {
                 'user.name AS name', 'user.type AS type',
                 'rescuer.email AS email', 'rescuer.bio AS bio',
                 'rescuer.available AS available', 'rescuer.password AS password',
-                'rescuer.id AS id')
+                'rescuer.id AS id', 'user.phone AS phone')
             .where('rescuer.id', '!=', String(id))
 
         const AdminIts = rescuer.map((AdminItem: AdminItem) => {
@@ -32,8 +32,8 @@ class AdminController {
                 id: AdminItem.id,
                 name: dec(AdminItem.name).toString(),
                 type: AdminItem.type,
-                avaliable: AdminItem.avaliable,
-                phone: AdminItem.phone,
+                available: AdminItem.available,
+                phone: dec(AdminItem.phone).toString(),
                 email: dec(AdminItem.email).toString(),
                 bio: AdminItem.bio,
                 password: dec(AdminItem.password).toString(),
@@ -48,25 +48,23 @@ class AdminController {
 
         let rescuer = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
+            .distinct()
             .select(
-                'user.name as name', 'user.type as type',
-                'rescuer.email as email', 'rescuer.bio as bio',
-                'rescuer.available as available', 'rescuer.password AS password',
-                'rescuer.user_id AS user_id'
-            )
+                'user.name AS name', 'user.type AS type',
+                'rescuer.email AS email', 'rescuer.bio AS bio',
+                'rescuer.available AS available', 'rescuer.password AS password',
+                'rescuer.id AS id', 'user.phone AS phone')
             .where('rescuer.id', '=', String(id))
-            .first()
 
         const AdminIts = rescuer.map((AdminItem: AdminItem) => {
             return {
                 id: AdminItem.id,
                 name: dec(AdminItem.name).toString(),
                 type: AdminItem.type,
-                avaliable: AdminItem.avaliable,
-                phone: AdminItem.phone,
+                available: AdminItem.available,
+                phone: dec(AdminItem.phone).toString(),
                 email: dec(AdminItem.email).toString(),
-                bio: AdminItem.bio,
-                password: dec(AdminItem.password).toString(),
+                bio: AdminItem.bio
             }
         })
 

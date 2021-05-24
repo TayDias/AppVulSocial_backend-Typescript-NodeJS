@@ -77,7 +77,7 @@ routes.get('/help', helpController.index)
 routes.get('/adminuser/:id', adminController.index)
 
 //Listar Usuário Específico
-routes.get('/admin/:id', adminController.search)
+routes.get('/adminupdate/:id', adminController.search)
 
 //Deletar Usuário Específico
 routes.delete('/admin', adminController.delete)
