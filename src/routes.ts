@@ -74,10 +74,13 @@ routes.put('/assistance', assistanceController.update)
 routes.get('/help', helpController.index)
 
 //Listar Usuários
-routes.get('/admin', adminController.index)
+routes.get('/adminuser/:id', adminController.index)
 
 //Listar Usuário Específico
 routes.get('/admin/:id', adminController.search)
+
+//Deletar Usuário Específico
+routes.delete('/admin', adminController.delete)
 
 //Login
 routes.post('/login', authController.login)
