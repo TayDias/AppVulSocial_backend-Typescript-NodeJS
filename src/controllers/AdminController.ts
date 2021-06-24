@@ -71,6 +71,12 @@ class AdminController {
         return response.json(AdminIts)
     }
 
+    async update(request: Request, response: Response) {
+        const { id } = request.params
+
+        /* DESENVOLVER O UPDATE */
+    }
+
     async delete(request: Request, response: Response) {
         let { id } = request.query
 
