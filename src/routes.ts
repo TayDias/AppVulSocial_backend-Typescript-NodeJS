@@ -80,10 +80,19 @@ routes.get('/adminuser/:id', adminController.index)
 routes.get('/adminupdate/:id', adminController.search)
 
 //Atualizar Usuário Específico
-routes.get('/adminupdate/:id', adminController.update)
+routes.get('/adminupdateuser/:id', adminController.update)
 
 //Deletar Usuário Específico
 routes.delete('/admin', adminController.delete)
+
+//Listar FAQ
+routes.get('/adminfaq', adminController.AllFAQ)
+
+//Listar FAQ Específico
+routes.get('/adminfaqupdate/:id', adminController.searchFAQ)
+
+//Deletar FAQ Específico
+routes.delete('/adminfaqdel', adminController.deleteFAQ)
 
 //Login
 routes.post('/login', authController.login)
