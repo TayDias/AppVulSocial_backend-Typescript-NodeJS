@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Jun-2021 às 15:21
+-- Generation Time: 25-Jun-2021 às 15:52
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `help` (
   `title` varchar(150) NOT NULL,
   `desc` varchar(200) NOT NULL,
   `text` varchar(1000) NOT NULL,
-  `location` enum('FAQ','Desk','Landing') NOT NULL DEFAULT 'FAQ',
+  `location` enum('Desativado','FAQ','Desk','Landing') NOT NULL DEFAULT 'Desativado',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
