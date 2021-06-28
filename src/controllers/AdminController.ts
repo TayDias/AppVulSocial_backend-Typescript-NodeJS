@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import knex from '../database/connection'
-import { dec } from '../utils/cryptoUtils'
+import { Request, Response } from 'express';
+import knex from '../database/connection';
+import { dec, enc, encPass } from '../utils/cryptoUtils';
 
 interface AdminItem {
     id: number,
@@ -81,9 +81,36 @@ class AdminController {
     }
 
     async update(request: Request, response: Response) {
-        const { id } = request.params
+        let {
+            id,
+            name,
+            phone,
+            bio,
+            email,
+            password,
+            available,
+        } = request.body
 
-        /* DESENVOLVER O UPDATE */
+        name = enc(name);
+        phone = enc(phone);
+        email = enc(email);
+        password = encPass(password).toString();
+
+        await knex('user')
+            .where('id', '=', String(id))
+            .update({
+                name: name,
+                phone: phone
+            })
+
+        await knex('rescuer')
+            .where('user_id', '=', String(id))
+            .update({
+                bio: bio,
+                email: email,
+                password: password,
+                available: available
+            })
     }
 
     async delete(request: Request, response: Response) {

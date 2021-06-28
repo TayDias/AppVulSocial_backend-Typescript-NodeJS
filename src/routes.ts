@@ -80,7 +80,7 @@ routes.get('/adminuser/:id', adminController.index)
 routes.get('/adminupdate/:id', adminController.search)
 
 //Atualizar Usuário Específico
-routes.get('/adminupdateuser/:id', adminController.update)
+routes.get('/adminupdateuser', adminController.update)
 
 //Deletar Usuário Específico
 routes.delete('/admin', adminController.delete)
