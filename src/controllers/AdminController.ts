@@ -73,14 +73,14 @@ class AdminController {
                 available: AdminItem.available,
                 phone: dec(AdminItem.phone).toString(),
                 email: dec(AdminItem.email).toString(),
-                bio: AdminItem.bio
+                bio: AdminItem.bio,
             }
         })
 
         return response.json(AdminIts)
     }
 
-    async update(request: Request, response: Response) {
+    async updatewithpass(request: Request, response: Response) {
         let {
             id,
             name,
@@ -111,6 +111,40 @@ class AdminController {
                 password: password,
                 available: available
             })
+
+        return response.status(200).json({ message: 'Updated user.' })
+    }
+
+    async updatewithoutpass(request: Request, response: Response) {
+        let {
+            id,
+            name,
+            phone,
+            bio,
+            email,
+            available,
+        } = request.body
+
+        name = enc(name);
+        phone = enc(phone);
+        email = enc(email);
+
+        await knex('user')
+            .where('id', '=', String(id))
+            .update({
+                name: name,
+                phone: phone
+            })
+
+        await knex('rescuer')
+            .where('user_id', '=', String(id))
+            .update({
+                bio: bio,
+                email: email,
+                available: available
+            })
+
+        return response.status(200).json({ message: 'Updated user.' })
     }
 
     async delete(request: Request, response: Response) {
@@ -217,6 +251,29 @@ class AdminController {
 
 
         return response.status(200).json({ message: 'Pergunta frequente deletada com sucesso' })
+    }
+
+    async updateFAQ(request: Request, response: Response) {
+        let {
+            id,
+            url,
+            title,
+            desc,
+            text,
+            location,
+        } = request.body
+
+        await knex('help')
+            .where('id', '=', String(id))
+            .update({
+                url: url,
+                title: title,
+                desc: desc,
+                text: text,
+                location: location
+            })
+
+        return response.status(200).json({ message: 'Updated FAQ.' })
     }
 }
 

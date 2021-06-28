@@ -79,8 +79,11 @@ routes.get('/adminuser/:id', adminController.index)
 //Listar Usuário Específico
 routes.get('/adminupdate/:id', adminController.search)
 
-//Atualizar Usuário Específico
-routes.get('/adminupdateuser', adminController.update)
+//Atualizar Usuário Específico Com Senha
+routes.post('/adminupdateuserwp', adminController.updatewithpass)
+
+//Atualizar Usuário Específico Sem Senha
+routes.post('/adminupdateuser', adminController.updatewithoutpass)
 
 //Deletar Usuário Específico
 routes.delete('/admin', adminController.delete)
@@ -93,6 +96,9 @@ routes.get('/adminfaqupdate/:id', adminController.searchFAQ)
 
 //Deletar FAQ Específico
 routes.delete('/adminfaqdel', adminController.deleteFAQ)
+
+//Atualizar FAQ Específico
+routes.post('/adminupdatefaq', adminController.updateFAQ)
 
 //Login
 routes.post('/login', authController.login)
