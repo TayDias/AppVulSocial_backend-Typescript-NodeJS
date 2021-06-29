@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 28-Jun-2021 às 21:44
+-- Generation Time: 29-Jun-2021 às 13:42
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -30,7 +30,6 @@ USE `apivulnerabilitybd`;
 -- Estrutura da tabela `assistance`
 --
 
-DROP TABLE IF EXISTS `assistance`;
 CREATE TABLE IF NOT EXISTS `assistance` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `protocol` int(11) NOT NULL,
@@ -52,13 +51,12 @@ CREATE TABLE IF NOT EXISTS `assistance` (
 -- Estrutura da tabela `help`
 --
 
-DROP TABLE IF EXISTS `help`;
 CREATE TABLE IF NOT EXISTS `help` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(500) NOT NULL,
-  `title` varchar(500) NOT NULL,
-  `desc` varchar(1000) NOT NULL,
-  `text` varchar(5000) NOT NULL,
+  `url` varchar(1000) NOT NULL,
+  `title` varchar(2500) NOT NULL,
+  `desc` varchar(5000) NOT NULL,
+  `text` varchar(10000) NOT NULL,
   `location` enum('Desativado','FAQ','Desk','Landing') NOT NULL DEFAULT 'Desativado',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
@@ -85,7 +83,6 @@ INSERT INTO `help` (`id`, `url`, `title`, `desc`, `text`, `location`) VALUES
 -- Estrutura da tabela `rescuer`
 --
 
-DROP TABLE IF EXISTS `rescuer`;
 CREATE TABLE IF NOT EXISTS `rescuer` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `bio` varchar(255) NOT NULL,
@@ -105,7 +102,6 @@ CREATE TABLE IF NOT EXISTS `rescuer` (
 -- Estrutura da tabela `schedule`
 --
 
-DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `week_day` int(10) NOT NULL DEFAULT '0',
@@ -122,7 +118,6 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 -- Estrutura da tabela `specialty`
 --
 
-DROP TABLE IF EXISTS `specialty`;
 CREATE TABLE IF NOT EXISTS `specialty` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -135,7 +130,6 @@ CREATE TABLE IF NOT EXISTS `specialty` (
 -- Estrutura da tabela `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -150,7 +144,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Estrutura da tabela `vulnerable`
 --
 
-DROP TABLE IF EXISTS `vulnerable`;
 CREATE TABLE IF NOT EXISTS `vulnerable` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nickname` varchar(255) NOT NULL,
@@ -167,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `vulnerable` (
 -- Estrutura da tabela `weekday`
 --
 
-DROP TABLE IF EXISTS `weekday`;
 CREATE TABLE IF NOT EXISTS `weekday` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '0',

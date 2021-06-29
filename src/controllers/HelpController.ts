@@ -19,7 +19,7 @@ class HelpController {
                     'help.title AS title', 'help.desc AS desc',
                     'help.text AS text', 'help.location AS location')
             .where('location', '=', String(location))
-            .orderBy('id', 'DESC')
+            .orderBy('id', 'asc')
 
         const HelpIts = help.map((helpItem: HelpItem) => {
             return {

@@ -100,6 +100,9 @@ routes.delete('/adminfaqdel', adminController.deleteFAQ)
 //Atualizar FAQ Específico
 routes.post('/adminupdatefaq', adminController.updateFAQ)
 
+//Inserir Novo FAQ
+routes.post('/admininsertfaq', adminController.insertFAQ)
+
 //Login
 routes.post('/login', authController.login)
 

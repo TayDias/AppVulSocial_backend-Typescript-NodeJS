@@ -192,7 +192,8 @@ class AdminController {
             .select(
                 'help.id AS id', 'help.url AS url',
                 'help.title AS title', 'help.desc AS desc',
-                'help.text AS text', 'help.location AS location');
+                'help.text AS text', 'help.location AS location')
+                .orderBy('id', 'desc')
 
         const FAQIts = help.map((FAQItem: FAQItem) => {
             return {
@@ -274,6 +275,35 @@ class AdminController {
             })
 
         return response.status(200).json({ message: 'Updated FAQ.' })
+    }
+
+    async insertFAQ(request: Request, response: Response) {
+        let {
+            url,
+            title,
+            desc,
+            text,
+            location,
+        } = request.body
+
+        const faq = {
+            url,
+            title,
+            desc,
+            text,
+            location,
+        }
+
+        //INICIO DA TRANSAÇÃO
+        const transaction = await knex.transaction()
+
+        //INSERT NA TABELA HELP
+        await transaction('help').insert(faq)
+
+        //FIM DA TRANSAÇÃO
+        await transaction.commit()
+
+        return response.status(200).json({ message: 'Inserted FAQ.' })
     }
 }
 
