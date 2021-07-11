@@ -77,13 +77,13 @@ routes.get('/help', helpController.index)
 routes.get('/adminuser/:id', adminController.index)
 
 //Listar Usuário Específico
-routes.get('/adminupdate/:id', adminController.search)
+routes.get('/getRescuerForUpdate/:id', adminController.getRescuerForUpdate)
 
 //Atualizar Usuário Específico Com Senha
-routes.post('/adminupdateuserwp', adminController.updatewithpass)
+routes.post('/updateRescuer', adminController.updateWithPass)
 
 //Atualizar Usuário Específico Sem Senha
-routes.post('/adminupdateuser', adminController.updatewithoutpass)
+routes.post('/updateRescuerWithoutPass', adminController.updateWithoutPass)
 
 //Deletar Usuário Específico
 routes.delete('/admin', adminController.delete)

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 import knex from '../database/connection';
 import { dec, enc, encPass } from '../utils/cryptoUtils';
 
@@ -11,6 +11,7 @@ interface AdminItem {
     email: String,
     bio: String,
     password: String,
+    userId: number
 }
 
 interface FAQItem {
@@ -30,7 +31,7 @@ class AdminController {
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .distinct()
             .select(
-                'user.name AS name', 'user.type AS type',
+                'user.name AS name', 'user.type AS type', 'user.id AS userId',
                 'rescuer.email AS email', 'rescuer.bio AS bio',
                 'rescuer.available AS available', 'rescuer.password AS password',
                 'rescuer.id AS id', 'user.phone AS phone')
@@ -45,21 +46,21 @@ class AdminController {
                 phone: dec(AdminItem.phone).toString(),
                 email: dec(AdminItem.email).toString(),
                 bio: AdminItem.bio,
-                password: dec(AdminItem.password).toString(),
+                userId: AdminItem.userId
             }
         })
 
         return response.json(AdminIts)
     }
 
-    async search(request: Request, response: Response) {
+    async getRescuerForUpdate(request: Request, response: Response) {
         const { id } = request.params
 
         let rescuer = await knex('rescuer')
             .join('user', 'user.id', '=', 'rescuer.user_id')
             .distinct()
             .select(
-                'user.name AS name', 'user.type AS type',
+                'user.name AS name', 'user.type AS type', 'user.id AS userId',
                 'rescuer.email AS email', 'rescuer.bio AS bio',
                 'rescuer.available AS available', 'rescuer.password AS password',
                 'rescuer.id AS id', 'user.phone AS phone')
@@ -74,13 +75,14 @@ class AdminController {
                 phone: dec(AdminItem.phone).toString(),
                 email: dec(AdminItem.email).toString(),
                 bio: AdminItem.bio,
+                userId: AdminItem.userId
             }
         })
 
         return response.json(AdminIts)
     }
 
-    async updatewithpass(request: Request, response: Response) {
+    async updateWithPass(request: Request, response: Response) {
         let {
             id,
             name,
@@ -89,6 +91,7 @@ class AdminController {
             email,
             password,
             available,
+            userId
         } = request.body
 
         name = enc(name);
@@ -97,14 +100,14 @@ class AdminController {
         password = encPass(password).toString();
 
         await knex('user')
-            .where('id', '=', String(id))
+            .where('id', '=', String(userId))
             .update({
                 name: name,
                 phone: phone
             })
 
         await knex('rescuer')
-            .where('user_id', '=', String(id))
+            .where('id', '=', String(id))
             .update({
                 bio: bio,
                 email: email,
@@ -115,7 +118,7 @@ class AdminController {
         return response.status(200).json({ message: 'Updated user.' })
     }
 
-    async updatewithoutpass(request: Request, response: Response) {
+    async updateWithoutPass(request: Request, response: Response) {
         let {
             id,
             name,
@@ -123,6 +126,7 @@ class AdminController {
             bio,
             email,
             available,
+            userId
         } = request.body
 
         name = enc(name);
@@ -130,25 +134,27 @@ class AdminController {
         email = enc(email);
 
         await knex('user')
-            .where('id', '=', String(id))
+            .where('id', '=', String(userId))
             .update({
                 name: name,
                 phone: phone
             })
+            .catch(e => response.status(500).json(e));
 
         await knex('rescuer')
-            .where('user_id', '=', String(id))
+            .where('id', '=', String(id))
             .update({
                 bio: bio,
                 email: email,
                 available: available
             })
+            .catch(e => response.status(500).json(e));
 
         return response.status(200).json({ message: 'Updated user.' })
     }
 
     async delete(request: Request, response: Response) {
-        let { id } = request.query
+        let { id, rescuer_id } = request.query
 
         try {
             knex.transaction(trx => {
@@ -173,7 +179,7 @@ class AdminController {
                 knex('schedule')
                     .transacting(trx)
                     .delete()
-                    .where({ 'rescuer_id': id })
+                    .where({ 'rescuer_id': rescuer_id })
                     .then(trx.commit)
                     .catch(trx.rollback)
             })
