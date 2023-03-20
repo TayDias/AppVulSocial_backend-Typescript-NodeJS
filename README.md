@@ -4,7 +4,7 @@
 * NODE: https://nodejs.org/en/download/
 * YARN: https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
 
-## Dependnecias desse projeto
+## Dependencias desse projeto
 
 * @nestjs/common
 * @nestjs/core
