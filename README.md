@@ -219,10 +219,17 @@
 
 # Configuração do ambiente de teste
 
+## Pré-requisitos
+
+- **Node.js** versão 4 ou superior;
+- **Yarn** - `npm install --global yarn`.
+- **Nodemon** - `npm i -g nodemon`.
+
+## Instalação
+
 1. Faça o clone do repositório e no terminal navegue até a pasta.
-2. Abra a pasta no seu editor de código. O código foi desenvolvido no [Visual Studio Code](https://code.visualstudio.com).
-3. Instale as dependências do projeto com `npm install`.
-4. Configure uma conexão no seu gerenciador de dados, depois edite o arquivo `/src/database/connection.ts` e adicione as suas próprias configurações de conexão com o MySQL.
+2. Abra o seu editor de código e instale as dependências do projeto com `npm install`. O código foi desenvolvido no [Visual Studio Code](https://code.visualstudio.com).
+3. Configure uma conexão no seu gerenciador de dados MySQL, depois edite o arquivo `/src/database/connection.ts` e adicione as suas próprias configurações de conexão.
 5. Crie a estrutura de tabelas rodando o script `/src/database/scriptDB.sql` no seu gerenciador de dados ou então rodando as Migrations e as Seeds na pasta do projeto com os comandos `npm run knex:migrate` e `npm run knex:seed`.
 6. Rode o servidor de desenvolvimento com `npm run dev`.
 
@@ -246,6 +253,12 @@ https://brianflove.com/2017-03-22/express-cors-typescript/
 
 Emoji-cheat-sheet:
 https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md
+
+How to find what node version a project supports:
+https://stackoverflow.com/questions/42805913/how-to-find-what-node-version-a-project-supports
+
+RESTful com Node.js, Restify e MySQL:
+https://github.com/farnetani/exemplo-restful-nodejs/blob/master/README.md
 
 TCC - DESENVOLVIMENTO DE UM CHATBOT PARA APOIO A VÍTIMAS DE VIOLÊNCIA DOMÉSTICA:
 https://repositorio.animaeducacao.com.br/bitstream/ANIMA/23997/1/TCC-Final-Taynara-Dias.pdf
