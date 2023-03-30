@@ -219,7 +219,13 @@
 
 # Configuração do ambiente de teste
 
-To Do
+1. Faça o clone do repositório e no terminal navegue até a pasta.
+2. Abra a pasta no seu editor de código. O código foi desenvolvido no [Visual Studio Code](https://code.visualstudio.com).
+3. Instale as dependências do projeto com `npm install`.
+4. Configure uma conexão no seu gerenciador de dados, depois edite o arquivo `/src/database/connection.ts` e adicione as suas próprias configurações de conexão com o MySQL.
+5. Crie a estrutura de tabelas rodando o script `/src/database/scriptDB.sql` no seu gerenciador de dados ou então rodando as Migrations e as Seeds na pasta do projeto com os comandos `npm run knex:migrate` e `npm run knex:seed`.
+6. Rode o servidor de desenvolvimento com `npm run dev`.
+
 
 # Referências
 
