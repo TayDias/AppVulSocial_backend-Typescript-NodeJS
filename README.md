@@ -2,6 +2,9 @@
 
 <p>O objetivo dessa API é fornecer a estrutura de back-end para o website do projeto e para determinadas funcionalidades do chatbot.</p>
 
+* [Código do front-end do website mesmo projeto](https://github.com/TayDias/AppVulSocial_frontend-React-Typescript-MobileFirst)
+* [Código do chatbot do mesmo projeto](https://github.com/TayDias/Chatbot-Grace---BLiP-Chat)
+
 
 # Índice
 
