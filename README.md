@@ -8,7 +8,6 @@
 * [Status do projeto](#Status-do-projeto)
 * [Tecnologias utilizadas](#Tecnologias-utilizadas)
 * [Endpoints](#Endpoints)
-* [Estrutura do banco de dados](#Estrutura-do-banco-de-dados)
 * [Configuração do ambiente de teste](#Configuração-do-ambiente-de-teste)
 * [Referências](#Referências)
 
@@ -54,20 +53,169 @@
   </thead>
   <body>
     <tr>
+      <td>/rescuers</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Listagem de todos os atendentes cadastrados</td>
+    </tr>
+    <tr>
       <td>/specialties</td>
       <td>Get</td>
       <td>N/A</td>
       <td>N/A</td>
       <td>Listagem das especializações cadastradas</td>
     </tr>
+    <tr>
+      <td>/rescuers/:id</td>
+      <td>Get</td>
+      <td>id: inteiro</td>
+      <td>Referência</td>
+      <td>Listagem dos dados de um atendente específico</td>
+    </tr>
+    <tr>
+      <td>/rescuers</td>
+      <td>Post</td>
+      <td>{ name: texto, phone: texto,password:texto, email: texto, bio: texto, specialty_id:inteiro, schedules: { week_day: inteiro, from: inteiro, to: inteiro, rescuer_id: inteiro } }</td>
+      <td>Corpo (JSON)</td>
+      <td>Cadastro de um novo atendente</td>
+    </tr>
+    <tr>
+      <td>/rescuers</td>
+      <td>Put</td>
+      <td>{ action: texto, available:inteiro, rescuer_id:inteiro }</td>
+      <td>Corpo(JSON)</td>
+      <td>Habilitação ou desabilitação do atendente</td>
+    </tr>
+    <tr>
+      <td>/rescuers</td>
+      <td>Delete</td>
+      <td>id: inteiro</td>
+      <td>Parâmetro</td>
+      <td>Exclusão de um usuário atendente</td>
+    </tr>
+    <tr>
+      <td>/schedules</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Listagem de todos os horários de atendimento</td>
+    </tr>
+    <tr>
+      <td>/schedules</td>
+      <td>Post</td>
+      <td>{ rescuer_id:inteiro, schedules: { week_day: inteiro, from: inteiro, to: inteiro, rescuer_id: inteiro } }</td>
+      <td>Corpo (JSON)</td>
+      <td>Cadastro de novos horários de atendimento.</td>
+    </tr>
+    <tr>
+      <td>/schedules</td>
+      <td>Put</td>
+      <td>{ id: inteiro, week_day: inteiro, from: inteiro, to: inteiro }</td>
+      <td>Corpo (JSON)</td>
+      <td>Alteração de horários de atendimento</td>
+    </tr>
+    <tr>
+      <td>/schedules</td>
+      <td>Delete</td>
+      <td>id: inteiro</td>
+      <td>Parâmetro</td>
+      <td>Exclusão de um horário de atendimento</td>
+    </tr>
+    <tr>
+      <td>/nextschedules</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Listagem dos próximos três horários de atendimento</td>
+    </tr>
+    <tr>
+      <td>/availability</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Verificar se há horários de atendimento em andamento no momento</td>
+    </tr>
+    <tr>
+      <td>/vulnerable</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Listagem de todos pessoas cadastradas pelo chatbot</td>
+    </tr>
+    <tr>
+      <td>/vulnerable</td>
+      <td>Post</td>
+      <td>{ name: texto, phone: texto, nickname:texto, address: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Cadastro de um novo usuário da rede vulnerável</td>
+    </tr>
+    <tr>
+      <td>/help</td>
+      <td>Get</td>
+      <td>location: texto</td>
+      <td>Parâmetro</td>
+      <td>Listagem das perguntas cadastradas para o FAQ de um local</td>
+    </tr>
+    <tr>
+      <td>/faq</td>
+      <td>Get</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>Listagem de todas as perguntas de FAQ</td>
+    </tr>
+    <tr>
+      <td>/faq/:id</td>
+      <td>Get</td>
+      <td>id: inteiro</td>
+      <td>Referência</td>
+      <td>Listagem dos dados de uma pergunta de FAQ específica</td>
+    </tr>
+    <tr>
+      <td>/faq</td>
+      <td>Post</td>
+      <td>{ url: texto, title: texto, desc: texto, location: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Cadastro de uma nova pergunta de FAQ</td>
+    </tr>
+    <tr>
+      <td>/faq</td>
+      <td>Put</td>
+      <td>{ id: inteiro, url: texto, title: texto, desc: texto, location: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Alteração de uma pergunta de FAQ</td>
+    </tr>
+    <tr>
+      <td>/faq</td>
+      <td>Delete</td>
+      <td>id: inteiro</td>
+      <td>Parâmetro</td>
+      <td>Exclusão de uma pergunta de FAQ</td>
+    </tr>
+    <tr>
+      <td>/login</td>
+      <td>Post</td>
+      <td>{ email: texto, senha: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Autenticação de usuários</td>
+    </tr>
+    <tr>
+      <td>/sendSchedules</td>
+      <td>Post</td>
+      <td>{ email: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Envio de futuros horários de atendimento por e-mail</td>
+    </tr>
+    <tr>
+      <td>/sendFeedback</td>
+      <td>Post</td>
+      <td>{ autor: texto, motivo: texto, feedback: texto }</td>
+      <td>Corpo (JSON)</td>
+      <td>Envio de feedback do chatbot para o e-mail do projeto</td>
+    </tr>
   </body>
 </table>
 
-Continua...
-
-# Estrutura do banco de dados
-
-To Do
 
 # Configuração do ambiente de teste
 
