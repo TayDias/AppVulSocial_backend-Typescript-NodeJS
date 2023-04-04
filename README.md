@@ -33,7 +33,7 @@
 - [Rxjs](https://rxjs.dev/guide/installation)
 - [Knex.js](https://knexjs.org)
 
-## Módulos Npm
+## Outros módulos Npm
 
 - [cors](https://www.npmjs.com/package/cors)
 - [crypto-ts](https://www.npmjs.com/package/crypto-ts)
