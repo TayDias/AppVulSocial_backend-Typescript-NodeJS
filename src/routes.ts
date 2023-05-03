@@ -50,7 +50,7 @@ routes.delete('/schedules', scheduleController.delete)
 routes.get('/nextschedules', scheduleController.showNextDates)
 
 //Checar Horário atual
-routes.get('/j', scheduleController.checkAvailability)
+routes.get('/availability', scheduleController.checkAvailability)
 
 //Listar Vulneráveis
 routes.get('/vulnerable', vulnerableController.index)
@@ -74,40 +74,40 @@ routes.put('/assistance', assistanceController.update)
 routes.get('/help', helpController.index)
 
 //Listar Usuários
-routes.get('/adminuser/:id', adminController.index)
+routes.get('/adminuser/:id', adminController.index) //??
 
 //Listar Usuário Específico
-routes.get('/getRescuerForUpdate/:id', adminController.getRescuerForUpdate)
+routes.get('/getRescuerForUpdate/:id', adminController.getRescuerForUpdate) //??
 
 //Atualizar Usuário Específico Com Senha
-routes.post('/updateRescuer', adminController.updateWithPass)
+routes.post('/updateRescuer', adminController.updateWithPass) //?
 
 //Atualizar Usuário Específico Sem Senha
-routes.post('/updateRescuerWithoutPass', adminController.updateWithoutPass)
+routes.post('/updateRescuerWithoutPass', adminController.updateWithoutPass) //??
 
 //Deletar Usuário Específico
-routes.delete('/admin', adminController.delete)
+routes.delete('/rescuer', adminController.delete)
 
 //Listar FAQ
-routes.get('/adminfaq', adminController.AllFAQ)
+routes.get('/faq', adminController.AllFAQ)
 
 //Listar FAQ Específico
-routes.get('/adminfaqupdate/:id', adminController.searchFAQ)
+routes.get('/faq/:id', adminController.searchFAQ)
 
 //Deletar FAQ Específico
-routes.delete('/adminfaqdel', adminController.deleteFAQ)
+routes.delete('/faq', adminController.deleteFAQ)
 
 //Atualizar FAQ Específico
-routes.post('/adminupdatefaq', adminController.updateFAQ)
+routes.put('/faq', adminController.updateFAQ)
 
 //Inserir Novo FAQ
-routes.post('/admininsertfaq', adminController.insertFAQ)
+routes.post('/faq', adminController.insertFAQ)
 
 //Login
 routes.post('/login', authController.login)
 
 //Enviar e-mail horários
-routes.post('/sendNextSchedules', scheduleController.sendNextSchedules)
+routes.post('/sendSchedules', scheduleController.sendNextSchedules)
 
 //Enviar e-mail feedback
 routes.post('/sendFeedback', vulnerableController.sendFeedback)

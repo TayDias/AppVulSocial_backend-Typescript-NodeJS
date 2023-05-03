@@ -41,3 +41,24 @@ app.listen(app.get('port'), () => {
     console.log('Running Server')
 })
 */
+
+/*
+Configuração Hostgator
+
+const hostname = '192.185.176.134'
+const port = 2083
+
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World! NodeJS \n');
+})
+
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+})
+*/
+
+//FTP é para stream de arquivos. Somente ele não vai funcionar
+//É preciso configurar um SSH
+//Assistir o video do Felipe Dechamps para ter uma luz

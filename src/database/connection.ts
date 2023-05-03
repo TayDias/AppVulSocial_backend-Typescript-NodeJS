@@ -36,10 +36,10 @@ const connection = knex({
     client: 'mysql',
     connection: {
         host : "127.0.0.1",
-        user : "root",
-        password : "",
+        user : "taynara",
+        password : "0101",
         database : "ApiVulnerabilityBD",
-        port: 3306
+        port: 3305
       },
       pool: {
         min: 2,
