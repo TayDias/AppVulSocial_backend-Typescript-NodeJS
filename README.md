@@ -22,7 +22,6 @@
 
 # Tecnologias utilizadas
 
-- [Npm](https://docs.npmjs.com/cli/v6/commands/npm-install)
 - [Node.ai](https://nodejs.org/en/download/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
 - [Typescript](https://www.typescriptlang.org)
@@ -233,8 +232,8 @@
 1. Faça o clone do repositório e no terminal navegue até a pasta.
 2. Abra o seu editor de código e instale as dependências do projeto com `npm install`. O código foi desenvolvido no [Visual Studio Code](https://code.visualstudio.com).
 3. Configure uma conexão no seu gerenciador de dados MySQL, depois edite o arquivo `/src/database/connection.ts` e adicione as suas próprias configurações de conexão.
-5. Crie a estrutura de tabelas rodando o script `/src/database/scriptDB.sql` no seu gerenciador de dados ou então rodando as Migrations e as Seeds na pasta do projeto com os comandos `npm run knex:migrate` e `npm run knex:seed`.
-6. Rode o servidor de desenvolvimento com `npm run dev`.
+4. Crie a estrutura de tabelas rodando o script `/src/database/scriptDB.sql` no seu gerenciador de dados ou então rodando as Migrations e as Seeds na pasta do projeto com os comandos `npm run knex:migrate` e `npm run knex:seed`.
+5. Rode o servidor de desenvolvimento com `npm run dev`.
 
 
 # Referências
