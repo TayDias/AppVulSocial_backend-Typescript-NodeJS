@@ -22,7 +22,7 @@
 
 # Tecnologias utilizadas
 
-- [Node.ai](https://nodejs.org/en/download/)
+- [Node](https://nodejs.org/en/download/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
 - [Typescript](https://www.typescriptlang.org)
 - [Express](https://expressjs.com/pt-br/)
